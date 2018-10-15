@@ -1,4 +1,5 @@
 import os
+import platform
 
 from metar import Metar
 
@@ -11,16 +12,19 @@ def comando_linux(data_hora):
 
 
 def comando_windows(data_hora):
+    comando = "wget/wget.exe --user-agent=\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\" --base=\"http://www.redemet.aer.mil.br/api/consulta_automatica/index.php\" --referer=\"http://www.redemet.aer.mil.br/api/consulta_automatica/index.php\" --post-data=\"&local=sbbr,sbgl,sbpa&msg=metar,taf&data_ini=" + data_hora + "&data_fim=" + data_hora + " -O resultado.txt http://www.redemet.aer.mil.br/api/consulta_automatica/index.php"
+    os.system(comando)
+
+def comando_windows(data_hora):
     pass
 
 
-def __init__():
+def inicializar():
     global comando
-    if os.uname().sysname == 'Linux':
+    if platform.system() == 'Linux':
         comando = comando_linux
-    elif os.name.sysname == "Win32":
+    elif platform.system() == "Windows":
         comando = comando_windows
-        pass
 
 
 def coleta(data_hora):
